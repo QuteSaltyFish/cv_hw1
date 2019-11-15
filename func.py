@@ -2,6 +2,7 @@ import torch as t
 from torchvision import transforms
 from PIL import Image
 import numpy as np
+import json
 class hw1():
     def __init__(self, dir):
         self.DEVICE = t.device("cuda" if t.cuda.is_available() else 'cpu')
@@ -9,7 +10,11 @@ class hw1():
         self.img_gray = self.img.convert("L")
         self.img_tensor = transforms.ToTensor()(self.img).to(self.DEVICE)
         self.img_gray_tensor = transforms.ToTensor()(self.img_gray).to(self.DEVICE)
-
+        self.load_config()
+    
+    def load_config(self):
+        file = open('config.json', "rb")
+        self.config = json.load(file)
 
     def Roberts(self,gray=True,padding=False):
         Gx = t.tensor([
@@ -76,7 +81,11 @@ class hw1():
         out_img.save('result/Sobel.gif')
         return out_img
 
-    def Gaussian(self, kernal_size=5, sigma=1, gray=False, padding=0):
+    def Gaussian(self, kernal_size=None, sigma=None, gray=False, padding=0):
+        if kernal_size==None:
+            kernal_size=self.config['Gaussian_kernel_size']
+        if sigma == None:
+            sigma=self.config["Gaussian_sigma"]
         if gray:
             data = self.img_gray_tensor
         else:
@@ -140,7 +149,9 @@ class hw1():
         out_img.save('result/Prewitt.gif')
         return out_img
 
-    def Mean_filter(self, kernal_size=5, sigma=1, gray=False, padding=0):
+    def Mean_filter(self, kernal_size=None, gray=False, padding=0):
+        if kernal_size==None:
+            kernal_size=self.config['Mean_kernel_size']
         if gray:
             data = self.img_gray_tensor
         else:
@@ -160,7 +171,9 @@ class hw1():
         out_img.save('result/Mean.gif')
         return out_img
 
-    def Median_filter(self, kernal_size=5, sigma=1, gray=False, padding=0):
+    def Median_filter(self, kernal_size=None, gray=False, padding=0):
+        if kernal_size==None:
+            kernal_size=self.config['Median_kernal_size']
         if gray:
             data = self.img_gray_tensor
         else:
@@ -182,4 +195,4 @@ class hw1():
 
 if __name__ == "__main__":
     data = hw1('src/img.jpg')
-    data.Gaussian(3)
+    data.Gaussian()

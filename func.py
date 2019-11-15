@@ -38,8 +38,9 @@ class hw1():
                 for j in range(1, data.shape[2]-1):
                     # print(data[k,i-1:i+1,j-1:j+1])
                     output[k,i,j] = t.abs(t.sum(Gx*data[k,i-1:i+2,j-1:j+2]))+t.abs(t.sum(Gy*data[k,i-1:i+2,j-1:j+2]))
-
-        return transforms.ToPILImage()(output.cpu())
+        out_img = transforms.ToPILImage()(output.cpu())
+        out_img.save('result/Roberts.gif')
+        return out_img
 
 
 
@@ -71,7 +72,9 @@ class hw1():
                 for j in range(0, output.shape[2]-1):
                     # print(data[k,i-1:i+1,j-1:j+1])
                     output[k,i,j] = t.abs(t.sum(Gx*data[k,i:i+kernal_size,j:j+kernal_size]))+t.abs(t.sum(Gy*data[k,i:i+kernal_size,j:j+kernal_size]))
-        return transforms.ToPILImage()(output.cpu())
+        out_img = transforms.ToPILImage()(output.cpu())
+        out_img.save('result/Sobel.gif')
+        return out_img
 
     def Gaussian(self, kernal_size=5, sigma=1, gray=False, padding=0):
         if gray:
@@ -99,7 +102,10 @@ class hw1():
                 for j in range(output.shape[2]):
                     # print(data[k,i-1:i+1,j-1:j+1])
                     output[k,i,j] = t.sum(gaussian*data[k,i:i+kernal_size,j:j+kernal_size])
-        return transforms.ToPILImage()(output.cpu())
+        
+        out_img = transforms.ToPILImage()(output.cpu())
+        out_img.save('result/Gaussian.gif')
+        return out_img
 
     def Prewitt(self, gray=True, padding=0):
         Gx = t.tensor([
@@ -130,8 +136,9 @@ class hw1():
                     # print(data[k,i-1:i+1,j-1:j+1])
                     output[k,i,j] = t.abs(t.sum(Gx*data[k,i:i+kernal_size,j:j+kernal_size]))+t.abs(t.sum(Gy*data[k,i:i+kernal_size,j:j+kernal_size]))
 
-        return transforms.ToPILImage()(output.cpu())
-
+        out_img = transforms.ToPILImage()(output.cpu())
+        out_img.save('result/Prewitt.gif')
+        return out_img
 
     def Mean_filter(self, kernal_size=5, sigma=1, gray=False, padding=0):
         if gray:
@@ -149,7 +156,9 @@ class hw1():
                 for j in range(output.shape[2]):
                     # print(data[k,i-1:i+1,j-1:j+1])
                     output[k,i,j] = t.mean(data[k,i:i+kernal_size,j:j+kernal_size])
-        return transforms.ToPILImage()(output.cpu())
+        out_img = transforms.ToPILImage()(output.cpu())
+        out_img.save('result/Mean.gif')
+        return out_img
 
     def Median_filter(self, kernal_size=5, sigma=1, gray=False, padding=0):
         if gray:
@@ -167,8 +176,9 @@ class hw1():
                 for j in range(output.shape[2]):
                     # print(data[k,i-1:i+1,j-1:j+1])
                     output[k,i,j] = t.median(data[k,i:i+kernal_size,j:j+kernal_size])
-        return transforms.ToPILImage()(output.cpu())
-
+        out_img = transforms.ToPILImage()(output.cpu())
+        out_img.save('result/Median.gif')
+        return out_img
 
 if __name__ == "__main__":
     data = hw1('src/img.jpg')

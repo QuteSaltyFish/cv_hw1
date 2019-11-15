@@ -2,7 +2,12 @@ import torch as t
 from torchvision import transforms
 from PIL import Image
 from func import *
-import tkinter
+
+
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+
 data = hw1('src/img.jpg')
 result = data.Gaussian(gray=False,padding=2)
 result.save("result/Gaussian.gif")

@@ -12,10 +12,13 @@ def com():
 
 e1=Entry(root)
 e1.pack()
-
-Button(root,text='获取',command=com).pack()
-
-l1=Label(root,text='只能数字')
+Button(root,text='click',command=com).pack()
+l1=Label(root,text='kernal_size')
 l1.pack()
 
+e2 = Entry(root)
+e2.pack()
+Button(root,text='click',command=com).pack()
+l1=Label(root,text='kernal_size')
+l1.pack()
 mainloop()

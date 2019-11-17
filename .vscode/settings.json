@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Users/albertwang/anaconda3/envs/pytorch/bin/python",
+    "python.pythonPath": "/home/wangmingke/anaconda3/envs/cv/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": false,
     "python.linting.enabled": true,
